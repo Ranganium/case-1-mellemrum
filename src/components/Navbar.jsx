@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import { HashLink } from "react-router-hash-link";
 
 export default function Navbar() {
   return (
@@ -7,7 +8,7 @@ export default function Navbar() {
         mellemrum<span>.</span>
       </NavLink>
       <div className="nav-links">
-        <NavLink to="/">Events</NavLink>
+        <HashLink to="/#events">Events</HashLink>
         <NavLink to="/om">Om Mellemrum</NavLink>
       </div>
     </nav>

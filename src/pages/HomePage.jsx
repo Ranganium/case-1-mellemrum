@@ -90,7 +90,7 @@ export default function HomePage() {
           </label>
         </section>
 
-        <section className="event-grid">
+        <section id="events-grid" className="event-grid">
           {filteredEvents.map((event) => (
             <article className="event-card" key={event.id}>
               <Link to={`/events/${event.title.replaceAll(" ", "-")}`}>
