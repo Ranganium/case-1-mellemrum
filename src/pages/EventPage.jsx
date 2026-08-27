@@ -99,6 +99,14 @@ export default function EventPage() {
                 onChange={(inputEvent) => setName(inputEvent.target.value)}
               />
             </label>
+            <label>
+              E-mail
+              <input
+                value={email}
+                onChange={(inputEvent) => setEmail(inputEvent.target.value)}
+                placeholder="dig@example.com"
+              />
+            </label>
             <button type="submit">Tilmeld mig</button>
           </form>
         </section>
