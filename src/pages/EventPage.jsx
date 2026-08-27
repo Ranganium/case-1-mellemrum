@@ -3,22 +3,24 @@ import { Link, useParams } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
 
 export default function EventPage() {
-  const { eventId } = useParams();
+  const { eventTitle } = useParams();
   const [event, setEvent] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
     async function getEvent() {
-      const response = await fetch(`${SUPABASE_URL}/events?id=eq.${eventId}`, {
-        headers,
-      });
+      const title = eventTitle.replaceAll("-", " ");
+      const response = await fetch(
+        `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}`,
+        { headers },
+      );
       const data = await response.json();
       setEvent(data[0]);
     }
 
     getEvent();
-  }, [eventId]);
+  }, [eventTitle]);
 
   async function handleSubmit(eventSubmit) {
     eventSubmit.preventDefault();
