@@ -200,7 +200,8 @@ main {
 }
 
 .filters label,
-.signup-panel label {
+.signup-panel label,
+.email-search-panel label {
   display: grid;
   font-size: 0.78rem;
   font-weight: 800;
@@ -646,9 +647,20 @@ select:focus {
   padding: clamp(2rem, 5vw, 5rem);
 }
 
+.email-search-panel {
+  background: var(--lime);
+  border-radius: 18px;
+  padding: clamp(2rem, 5vw, 5rem);
+}
+
 .signup-panel form {
   display: grid;
   gap: 0.65rem;
+}
+
+.email-search-panel form {
+  display: grid;
+  gap: 0.5rem;
 }
 
 .signup-panel form > span {
@@ -659,7 +671,8 @@ select:focus {
   text-transform: uppercase;
 }
 
-.signup-panel button {
+.signup-panel button,
+.email-search-panel button {
   background: var(--green);
   border: 0;
   color: white;
@@ -668,6 +681,10 @@ select:focus {
   margin-top: 0.7rem;
   min-height: 50px;
   padding: 0.8rem 1.1rem;
+}
+
+.email-search-panel button {
+  margin-top: 0;
 }
 
 .signup-panel button:disabled {

@@ -62,6 +62,7 @@ export default function EventPage() {
       email: email,
       eventTitle: event.title,
       eventDate: event.date,
+      eventLocation: `${event.venueName}, ${event.venueAddress}, ${event.venuePostalCode} ${event.venueCity}`,
     };
 
     try {
@@ -155,14 +156,18 @@ export default function EventPage() {
               <input
                 value={name}
                 onChange={(inputEvent) => setName(inputEvent.target.value)}
+                placeholder="Jens Jensen"
+                required
               />
             </label>
             <label>
               E-mail
               <input
+                type="email"
                 value={email}
                 onChange={(inputEvent) => setEmail(inputEvent.target.value)}
                 placeholder="dig@example.com"
+                required
               />
             </label>
             <button type="submit">Tilmeld mig</button>
