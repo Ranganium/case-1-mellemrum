@@ -6,14 +6,31 @@ export default function HomePage() {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Alle");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getEvents() {
-      const response = await fetch(`${SUPABASE_URL}/events?order=date.asc`, {
-        headers,
-      });
-      const data = await response.json();
-      setEvents(data);
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const response = await fetch(`${SUPABASE_URL}/events?order=date.asc`, {
+          headers,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Kunne ikke hente events (Fejl: ${response.status})`);
+        }
+
+        const data = await response.json();
+        setEvents(data);
+      } catch (err) {
+        console.error("Fejl ved hentning af events:", err);
+        setError(err.message || "Der opstod en uventet fejl");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     getEvents();
@@ -90,35 +107,51 @@ export default function HomePage() {
           </label>
         </section>
 
-        <section className="event-grid">
-          {filteredEvents.map((event) => (
-            <article className="event-card" key={event.id}>
-              <Link to={`/events/${event.title.replaceAll(" ", "-")}`}>
-                <img src={event.image} alt="" />
-              </Link>
-              <div className="event-card-content">
-                <p className="event-category">{event.category}</p>
-                <Link
-                  className="title-link"
-                  to={`/events/${event.title.replaceAll(" ", "-")}`}
-                >
-                  <h3>{event.title}</h3>
-                </Link>
-                <p>{event.summary}</p>
-                <div className="event-meta">
-                  <span>{formatEventDate(event.date)}</span>
-                  <span>{event.venueName}</span>
-                </div>
-                <Link
-                  className="card-link"
-                  to={`/events/${event.title.replaceAll(" ", "-")}`}
-                >
-                  Læs mere
-                </Link>
-              </div>
-            </article>
-          ))}
-        </section>
+        {isLoading && (
+          <p className="loading-text">Indlæser kommende events...</p>
+        )}
+
+        {error && (
+          <p className="error-text" style={{ color: "red" }}>
+            Fejl: {error}
+          </p>
+        )}
+
+        {!isLoading && !error && (
+          <section id="events-grid" className="event-grid">
+            {filteredEvents.length === 0 ? (
+              <p>Ingen events matcher din søgning.</p>
+            ) : (
+              filteredEvents.map((event) => (
+                <article className="event-card" key={event.id}>
+                  <Link to={`/events/${event.title.replaceAll(" ", "-")}`}>
+                    <img src={event.image} alt="" />
+                  </Link>
+                  <div className="event-card-content">
+                    <p className="event-category">{event.category}</p>
+                    <Link
+                      className="title-link"
+                      to={`/events/${event.title.replaceAll(" ", "-")}`}
+                    >
+                      <h3>{event.title}</h3>
+                    </Link>
+                    <p>{event.summary}</p>
+                    <div className="event-meta">
+                      <span>{formatEventDate(event.date)}</span>
+                      <span>{event.venueName}</span>
+                    </div>
+                    <Link
+                      className="card-link"
+                      to={`/events/${event.title.replaceAll(" ", "-")}`}
+                    >
+                      Læs mere
+                    </Link>
+                  </div>
+                </article>
+              ))
+            )}
+          </section>
+        )}
       </main>
     </>
   );

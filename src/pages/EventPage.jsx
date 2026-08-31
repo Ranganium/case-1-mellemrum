@@ -8,19 +8,47 @@ export default function EventPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  // fejlhåndtering og loading
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     async function getEvent() {
-      const title = eventTitle.replaceAll("-", " ");
-      const response = await fetch(
-        `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}`,
-        { headers },
-      );
-      const data = await response.json();
-      setEvent(data[0]);
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const title = eventTitle.replaceAll("-", " ");
+        const response = await fetch(
+          `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}`,
+          { headers },
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Kunne ikke indlæse event (Fejl: ${response.status})`,
+          );
+        }
+        const data = await response.json();
+        setEvent(data[0]);
+      } catch (err) {
+        console.error("Fejl ved indlæsning af event:", err);
+        setError(err.message || "Der opstod en uventet fejl");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     getEvent();
   }, [eventTitle]);
+
+  if (isLoading) {
+    return <p>Indlæser events...</p>;
+  }
+
+  if (error) {
+    return <p style={{ color: "red" }}>Fejl: {error}</p>;
+  }
 
   async function handleSubmit(eventSubmit) {
     eventSubmit.preventDefault();
