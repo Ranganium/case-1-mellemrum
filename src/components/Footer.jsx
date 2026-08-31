@@ -19,7 +19,7 @@ export default function Footer() {
             </div>
             <div className="footer-link-group">
               <p className="footer-heading">For arrangører</p>
-              <Link to="/tilmeldinger">Se tilmeldinger</Link>
+              <Link to="/tilmeldinger">Dine tilmeldinger</Link>
               <a href="mailto:hej@mellemrum.dk">Kontakt os</a>
             </div>
           </nav>

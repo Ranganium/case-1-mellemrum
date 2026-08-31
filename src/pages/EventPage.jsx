@@ -12,6 +12,7 @@ export default function EventPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Loading/ error function
   useEffect(() => {
     async function getEvent() {
       try {
@@ -42,6 +43,7 @@ export default function EventPage() {
     getEvent();
   }, [eventTitle]);
 
+  // Synlig loading
   if (isLoading) {
     return <p>Indlæser events...</p>;
   }
@@ -50,13 +52,40 @@ export default function EventPage() {
     return <p style={{ color: "red" }}>Fejl: {error}</p>;
   }
 
+  // Tilmeldingsblanket med funktion
   async function handleSubmit(eventSubmit) {
     eventSubmit.preventDefault();
     console.log({ name, email, event: event.title });
-  }
 
-  if (!event) {
-    return null;
+    const newRegistration = {
+      name: name,
+      email: email,
+      eventTitle: event.title,
+      eventDate: event.date,
+      eventLocation: `${event.venueName}, ${event.venueAddress}, ${event.venuePostalCode} ${event.venueCity}`,
+    };
+
+    try {
+      const response = await fetch(`${SUPABASE_URL}/registrations`, {
+        method: "POST",
+        headers: {
+          ...headers,
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify(newRegistration),
+      });
+
+      if (!response.ok) {
+        throw new Error("Kunne ikke gemme tilmeldingen");
+      }
+
+      alert("Tak for din tilmelding! Den er nu gemt.");
+      setName("");
+      setEmail("");
+    } catch (err) {
+      console.error("Fejl ved indsendelse:", err);
+      alert("Der opstod en fejl. Prøv igen.");
+    }
   }
 
   const date = new Date(event.date);
@@ -127,14 +156,18 @@ export default function EventPage() {
               <input
                 value={name}
                 onChange={(inputEvent) => setName(inputEvent.target.value)}
+                placeholder="Jens Jensen"
+                required
               />
             </label>
             <label>
               E-mail
               <input
+                type="email"
                 value={email}
                 onChange={(inputEvent) => setEmail(inputEvent.target.value)}
                 placeholder="dig@example.com"
+                required
               />
             </label>
             <button type="submit">Tilmeld mig</button>
