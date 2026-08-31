@@ -6,6 +6,8 @@ export default function HomePage() {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Alle");
+
+  // fjelhåndtering og loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 

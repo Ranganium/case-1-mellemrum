@@ -44,8 +44,8 @@ export default function RegistrationsPage() {
   return (
     <>
       <header className="admin-header">
-        <p className="eyebrow">Internt overblik</p>
-        <h1>Tilmeldinger</h1>
+        <p className="eyebrow">Dit personlige overblik</p>
+        <h1>Dine tilmeldinger</h1>
         <p>{registrationCount} tilmeldinger i alt</p>
       </header>
       <main>
