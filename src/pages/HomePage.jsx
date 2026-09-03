@@ -81,7 +81,7 @@ export default function HomePage() {
       <main id="events">
         <section className="section-heading">
           <div>
-            <h4 className="eyebrow dark">Det sker</h4>
+            <span className="eyebrow dark">Det sker</span>
             <h2>Kommende events</h2>
           </div>
           <p>Kuraterede oplevelser i byen – fra små scener til store idéer.</p>

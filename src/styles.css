@@ -689,7 +689,8 @@ select:focus {
   border: 0;
   cursor: pointer;
   width: fit-content;
-  border-radius: 9px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .kontakt-btn a {
