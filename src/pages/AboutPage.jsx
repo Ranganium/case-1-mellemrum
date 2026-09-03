@@ -57,7 +57,11 @@ export default function AboutPage() {
                 Del events med et nysgerrigt publikum, og få overblik over de
                 mennesker, der tilmelder sig.
               </p>
-              <a href="mailto:hej@mellemrum.dk">Tal med os om et event →</a>
+              <button className="kontakt-btn">
+                <a href="mailto:hej@mellemrum.dk">
+                  Skriv en mail til os om et event →
+                </a>
+              </button>
             </article>
           </div>
         </section>

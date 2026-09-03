@@ -687,6 +687,21 @@ select:focus {
   margin-top: 0;
 }
 
+.kontakt-btn {
+  background: var(--green);
+  color: var(--paper);
+  padding: 0.5rem 0.75rem;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  width: fit-content;
+  border-radius: 9px;
+}
+
+.kontakt-btn a {
+  text-decoration: none;
+}
+
 .signup-panel button:disabled {
   cursor: wait;
   opacity: 0.65;
