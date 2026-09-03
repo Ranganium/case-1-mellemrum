@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
+import LoadingLottie from "../components/LoadingLottie";
 
 export default function EventPage() {
   const { eventTitle } = useParams();
@@ -45,7 +46,7 @@ export default function EventPage() {
 
   // Synlig loading
   if (isLoading) {
-    return <p>Indlæser events...</p>;
+    return <LoadingLottie />;
   }
 
   if (error) {

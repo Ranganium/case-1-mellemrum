@@ -392,12 +392,6 @@ select:focus {
   margin: 0;
 }
 
-.about-page p {
-  color: #4f5c57;
-  font-size: 1.08rem;
-  line-height: 1.7;
-}
-
 .about-intro {
   display: grid;
   gap: clamp(3rem, 7vw, 7rem);
@@ -961,4 +955,11 @@ select:focus {
     flex-direction: column;
     gap: 0.4rem;
   }
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }

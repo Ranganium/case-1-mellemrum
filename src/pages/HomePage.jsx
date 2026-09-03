@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
+import LoadingLottie from "../components/LoadingLottie.jsx";
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
@@ -109,9 +110,7 @@ export default function HomePage() {
           </label>
         </section>
 
-        {isLoading && (
-          <p className="loading-text">Indlæser kommende events...</p>
-        )}
+        {isLoading && <LoadingLottie />}
 
         {error && (
           <p className="error-text" style={{ color: "red" }}>
