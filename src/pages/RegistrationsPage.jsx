@@ -58,7 +58,7 @@ export default function RegistrationsPage() {
   return (
     <>
       <header className="admin-header">
-        <p className="eyebrow">Dit personlige overblik</p>
+        <span className="eyebrow">Dit personlige overblik</span>
         <h1>
           {(() => {
             const name = filteredRegistrations[0]?.name;

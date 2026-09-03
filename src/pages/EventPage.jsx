@@ -148,7 +148,7 @@ export default function EventPage() {
 
         <section className="signup-panel">
           <div>
-            <p className="eyebrow dark">Tilmelding</p>
+            <span className="eyebrow dark">Tilmelding</span>
             <h2>Reserver din plads</h2>
             <p>
               Udfyld formularen, så sender vi din tilmelding til arrangøren.
