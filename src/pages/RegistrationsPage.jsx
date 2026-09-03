@@ -21,7 +21,7 @@ export default function RegistrationsPage() {
         setError(null);
 
         const response = await fetch(
-          `${SUPABASE_URL}/registrations?order=createdAt.desc`,
+          `${SUPABASE_URL}/registrations?order=createdAt.desc&select=*,event:events(*,venue:venues(*))`,
           { headers },
         );
 
@@ -59,20 +59,7 @@ export default function RegistrationsPage() {
     <>
       <header className="admin-header">
         <p className="eyebrow">Dit personlige overblik</p>
-        <h1>
-          {(() => {
-            const name = filteredRegistrations[0]?.name;
-            if (!name) return "Dine tilmeldinger";
-
-            // Tjek om det sidste bogstav er s, z eller x (uanset store/små bogstaver)
-            const endsWithSZX = ["s", "z", "x"].includes(
-              name.slice(-1).toLowerCase(),
-            );
-
-            // Brug enten kun apostrof eller 's
-            return `${name}${endsWithSZX ? "'" : "s"} tilmeldinger`;
-          })()}
-        </h1>
+        <h1>Dine tilmeldinger</h1>
         <p>
           {searchedEmail === ""
             ? "0 tilmeldinger i alt"
@@ -125,10 +112,15 @@ export default function RegistrationsPage() {
             ) : (
               filteredRegistrations.map((registration) => (
                 <div className="registration-row" key={registration.id}>
-                  <span>{registration.eventTitle}</span>
-                  <span>{registration.eventLocation}</span>
+                  <span>{registration.event.title}</span>
                   <span>
-                    {new Date(registration.eventDate).toLocaleDateString(
+                    {registration.event?.venue?.name},{" "}
+                    {registration.event?.venue?.address},<br />
+                    {registration.event?.venue?.postalCode}{" "}
+                    {registration.event?.venue?.city}
+                  </span>
+                  <span>
+                    {new Date(registration.event.date).toLocaleDateString(
                       "da-DK",
                     )}
                   </span>
