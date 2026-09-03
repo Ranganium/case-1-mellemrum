@@ -21,7 +21,7 @@ export default function EventPage() {
 
         const title = eventTitle.replaceAll("-", " ");
         const response = await fetch(
-          `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}`,
+          `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}&select=*,venue:venues(*)`,
           { headers },
         );
 
@@ -60,20 +60,21 @@ export default function EventPage() {
     const newRegistration = {
       name: name,
       email: email,
-      eventTitle: event.title,
-      eventDate: event.date,
-      eventLocation: `${event.venueName}, ${event.venueAddress}, ${event.venuePostalCode} ${event.venueCity}`,
+      eventId: event.id,
     };
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/registrations`, {
-        method: "POST",
-        headers: {
-          ...headers,
-          Prefer: "return=representation",
+      const response = await fetch(
+        `${SUPABASE_URL}/registrations?select=*,event:events(*)`,
+        {
+          method: "POST",
+          headers: {
+            ...headers,
+            Prefer: "return=representation",
+          },
+          body: JSON.stringify(newRegistration),
         },
-        body: JSON.stringify(newRegistration),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Kunne ikke gemme tilmeldingen");
