@@ -127,7 +127,12 @@ export default function EventPage() {
                   {event.venueWebsite && (
                     <>
                       <br />
-                      <a href={event.venueWebsite}>Besøg venue</a>
+                      <a
+                        href={event.venueWebsite}
+                        aria-label={`Læs mere om ${event.venue.name} ved at klikke her`}
+                      >
+                        Besøg venue
+                      </a>
                     </>
                   )}
                 </span>
@@ -143,7 +148,7 @@ export default function EventPage() {
 
         <section className="signup-panel">
           <div>
-            <p className="eyebrow dark">Tilmelding</p>
+            <span className="eyebrow dark">Tilmelding</span>
             <h2>Reserver din plads</h2>
             <p>
               Udfyld formularen, så sender vi din tilmelding til arrangøren.
