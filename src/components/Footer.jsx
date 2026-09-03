@@ -19,7 +19,9 @@ export default function Footer() {
             </div>
             <div className="footer-link-group">
               <h4 className="footer-heading">Kontakt os</h4>
-              <a href="mailto:hej@mellemrum.dk">Send en mail</a>
+              <button className="kontakt-btn">
+                <a href="mailto:hej@mellemrum.dk">Kontakt os →</a>
+              </button>
             </div>
           </nav>
         </div>

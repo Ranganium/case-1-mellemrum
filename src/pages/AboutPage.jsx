@@ -5,7 +5,7 @@ export default function AboutPage() {
     <>
       <header className="page-header about-header">
         <div className="about-header-content">
-          <p className="eyebrow">Om Mellemrum</p>
+          <span className="eyebrow">Om Mellemrum</span>
           <h1>Vi skaber mellemrum i kalenderen.</h1>
           <p>Udvalgte kulturoplevelser og nye perspektiver på Aarhus.</p>
         </div>
@@ -13,7 +13,7 @@ export default function AboutPage() {
       <main className="about-page">
         <section className="about-intro" aria-labelledby="about-intro-title">
           <div>
-            <p className="eyebrow dark">Idéen</p>
+            <span className="eyebrow dark">Idéen</span>
             <h2 id="about-intro-title">
               En enkel vej til det, der sker tæt på.
             </h2>
@@ -35,7 +35,7 @@ export default function AboutPage() {
           aria-labelledby="about-audiences-title"
         >
           <div className="about-section-heading">
-            <p className="eyebrow">Målgrupper</p>
+            <span className="eyebrow">Målgrupper</span>
             <h2 id="about-audiences-title">
               Mellemrum forbinder oplevelser med mennesker.
             </h2>
@@ -57,7 +57,11 @@ export default function AboutPage() {
                 Del events med et nysgerrigt publikum, og få overblik over de
                 mennesker, der tilmelder sig.
               </p>
-              <a href="mailto:hej@mellemrum.dk">Tal med os om et event →</a>
+              <button className="kontakt-btn">
+                <a href="mailto:hej@mellemrum.dk">
+                  Skriv en mail til os om et event →
+                </a>
+              </button>
             </article>
           </div>
         </section>
@@ -67,7 +71,7 @@ export default function AboutPage() {
           aria-labelledby="about-flow-title"
         >
           <div className="about-section-heading">
-            <p className="eyebrow dark">Sådan hænger det sammen</p>
+            <span className="eyebrow dark">Sådan hænger det sammen</span>
             <h2 id="about-flow-title">Fra idé til plads i kalenderen.</h2>
           </div>
           <ol className="about-flow-list">
@@ -98,7 +102,7 @@ export default function AboutPage() {
             <figcaption>Byrum, arkitektur og nye perspektiver.</figcaption>
           </figure>
           <div>
-            <p className="eyebrow dark">Aarhus tæt på</p>
+            <span className="eyebrow dark">Aarhus tæt på</span>
             <h2 id="about-city-title">Find plads til noget nyt.</h2>
             <p>
               Mellemrum peger på steder, idéer og fællesskaber på tværs af byen

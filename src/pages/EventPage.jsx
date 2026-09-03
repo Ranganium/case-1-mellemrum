@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
+import LoadingLottie from "../components/LoadingLottie";
 
 export default function EventPage() {
   const { eventTitle } = useParams();
@@ -21,7 +22,7 @@ export default function EventPage() {
 
         const title = eventTitle.replaceAll("-", " ");
         const response = await fetch(
-          `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}`,
+          `${SUPABASE_URL}/events?title=eq.${encodeURIComponent(title)}&select=*,venue:venues(*)`,
           { headers },
         );
 
@@ -45,7 +46,7 @@ export default function EventPage() {
 
   // Synlig loading
   if (isLoading) {
-    return <p>Indlæser events...</p>;
+    return <LoadingLottie />;
   }
 
   if (error) {
@@ -60,20 +61,21 @@ export default function EventPage() {
     const newRegistration = {
       name: name,
       email: email,
-      eventTitle: event.title,
-      eventDate: event.date,
-      eventLocation: `${event.venueName}, ${event.venueAddress}, ${event.venuePostalCode} ${event.venueCity}`,
+      eventId: event.id,
     };
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/registrations`, {
-        method: "POST",
-        headers: {
-          ...headers,
-          Prefer: "return=representation",
+      const response = await fetch(
+        `${SUPABASE_URL}/registrations?select=*,event:events(*)`,
+        {
+          method: "POST",
+          headers: {
+            ...headers,
+            Prefer: "return=representation",
+          },
+          body: JSON.stringify(newRegistration),
         },
-        body: JSON.stringify(newRegistration),
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Kunne ikke gemme tilmeldingen");
@@ -120,14 +122,14 @@ export default function EventPage() {
               <p>
                 <strong>Sted</strong>
                 <span>
-                  {event.venueName}
+                  {event.venue.name}
                   <br />
-                  {event.venueAddress}, {event.venuePostalCode}{" "}
-                  {event.venueCity}
-                  {event.venueWebsite && (
+                  {event.venue.address}, {event.venue.postalCode}{" "}
+                  {event.venue.city}
+                  {event.venue.website && (
                     <>
                       <br />
-                      <a href={event.venueWebsite}>Besøg venue</a>
+                      <a href={event.venue.website} aria-label={`Læs mere om ${event.venue.name} ved at klikke her`}>Besøg venue</a>
                     </>
                   )}
                 </span>
@@ -143,7 +145,7 @@ export default function EventPage() {
 
         <section className="signup-panel">
           <div>
-            <p className="eyebrow dark">Tilmelding</p>
+            <span className="eyebrow dark">Tilmelding</span>
             <h2>Reserver din plads</h2>
             <p>
               Udfyld formularen, så sender vi din tilmelding til arrangøren.
