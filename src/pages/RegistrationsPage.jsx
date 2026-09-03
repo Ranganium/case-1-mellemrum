@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
+import LoadingLottie from "../components/LoadingLottie";
 
 export default function RegistrationsPage() {
   const [registrations, setRegistrations] = useState([]);
@@ -57,9 +58,7 @@ export default function RegistrationsPage() {
             <span>Status</span>
           </div>
 
-          {isLoading && (
-            <p className="loading-text">Indlæser tilmeldinger...</p>
-          )}
+          {isLoading && <LoadingLottie />}
 
           {error && (
             <p className="error-text" style={{ color: "red" }}>
