@@ -10,6 +10,7 @@ export default function Navbar() {
       <div className="nav-links">
         <HashLink to="/#events">Events</HashLink>
         <NavLink to="/om">Om Mellemrum</NavLink>
+        <NavLink to="/tilmeldinger">Dine tilmeldinger</NavLink>
       </div>
     </nav>
   );
