@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
-import LoadingLottie from "../components/LoadingLottie";
+import LoadingLottie from "../components/LoadingLottie.jsx";
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
