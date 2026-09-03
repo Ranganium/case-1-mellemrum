@@ -12,6 +12,7 @@ export default function Navbar() {
           Events
         </HashLink>
         <NavLink to="/om">Om Mellemrum</NavLink>
+        <NavLink to="/tilmeldinger">Dine tilmeldinger</NavLink>
       </div>
     </nav>
   );
