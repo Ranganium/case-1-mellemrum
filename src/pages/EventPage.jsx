@@ -127,7 +127,12 @@ export default function EventPage() {
                   {event.venueWebsite && (
                     <>
                       <br />
-                      <a href={event.venueWebsite}>Besøg venue</a>
+                      <a
+                        href={event.venueWebsite}
+                        aria-label={`Læs mere om ${event.venue.name} ved at klikke her`}
+                      >
+                        Besøg venue
+                      </a>
                     </>
                   )}
                 </span>
