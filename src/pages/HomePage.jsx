@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
+import LoadingLottie from "../components/LoadingLottie.jsx";
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
@@ -66,7 +67,7 @@ export default function HomePage() {
   return (
     <>
       <header className="hero">
-        <p className="eyebrow">Kultur i Aarhus</p>
+        <span className="eyebrow">Kultur i Aarhus</span>
         <h1>Find plads til noget nyt.</h1>
         <p className="hero-copy">
           Koncerter, talks og workshops samlet ét sted. Find dit næste event, og
@@ -80,7 +81,7 @@ export default function HomePage() {
       <main id="events">
         <section className="section-heading">
           <div>
-            <p className="eyebrow dark">Det sker</p>
+            <h4 className="eyebrow dark">Det sker</h4>
             <h2>Kommende events</h2>
           </div>
           <p>Kuraterede oplevelser i byen – fra små scener til store idéer.</p>
@@ -109,9 +110,7 @@ export default function HomePage() {
           </label>
         </section>
 
-        {isLoading && (
-          <p className="loading-text">Indlæser kommende events...</p>
-        )}
+        {isLoading && <LoadingLottie />}
 
         {error && (
           <p className="error-text" style={{ color: "red" }}>
@@ -126,7 +125,10 @@ export default function HomePage() {
             ) : (
               filteredEvents.map((event) => (
                 <article className="event-card" key={event.id}>
-                  <Link to={`/events/${event.title.replaceAll(" ", "-")}`}>
+                  <Link
+                    to={`/events/${event.title.replaceAll(" ", "-")}`}
+                    aria-label={`Læs mere om ${event.title} ved at klikke her på billedet`}
+                  >
                     <img src={event.image} alt="" />
                   </Link>
                   <div className="event-card-content">
@@ -134,6 +136,7 @@ export default function HomePage() {
                     <Link
                       className="title-link"
                       to={`/events/${event.title.replaceAll(" ", "-")}`}
+                      aria-label={`Læs mere om ${event.title} ved at klikke her på titlen`}
                     >
                       <h3>{event.title}</h3>
                     </Link>
@@ -145,6 +148,7 @@ export default function HomePage() {
                     <Link
                       className="card-link"
                       to={`/events/${event.title.replaceAll(" ", "-")}`}
+                      aria-label={`Læs mere om ${event.title} ved at klikke her`}
                     >
                       Læs mere
                     </Link>

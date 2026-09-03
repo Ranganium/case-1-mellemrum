@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { SUPABASE_URL, headers } from "../services/events";
+import LoadingLottie from "../components/LoadingLottie";
 
 export default function EventPage() {
   const { eventTitle } = useParams();
@@ -45,7 +46,7 @@ export default function EventPage() {
 
   // Synlig loading
   if (isLoading) {
-    return <p>Indlæser events...</p>;
+    return <LoadingLottie />;
   }
 
   if (error) {
@@ -128,7 +129,7 @@ export default function EventPage() {
                   {event.venue.website && (
                     <>
                       <br />
-                      <a href={event.venue.website}>Besøg venue</a>
+                      <a href={event.venue.website} aria-label={`Læs mere om ${event.venue.name} ved at klikke her`}>Besøg venue</a>
                     </>
                   )}
                 </span>
@@ -144,7 +145,7 @@ export default function EventPage() {
 
         <section className="signup-panel">
           <div>
-            <p className="eyebrow dark">Tilmelding</p>
+            <span className="eyebrow dark">Tilmelding</span>
             <h2>Reserver din plads</h2>
             <p>
               Udfyld formularen, så sender vi din tilmelding til arrangøren.
